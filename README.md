@@ -3,3 +3,5 @@
  ***
 Problems:
 * Restart doesn't work on windows (not tested on mac)
+
+Download game: [Forca_jar.jar](https://github.com/TonyALima/Forca/raw/main/PessoalProjects/out/artifacts/Forca_jar/Forca_jar.jar)
