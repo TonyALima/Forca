@@ -11,12 +11,12 @@ public class Word {
     private final String[] categories = {"animal", "alimento", "parte_do_corpo"};
     private String[] list;
 
-    private String Word;
+    private String word;
     private String category;
 
     // Getters init
     public String getWord() {
-        return Word;
+        return word;
     }
 
     public String getCategory() {
@@ -45,8 +45,8 @@ public class Word {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
         int wr = random.nextInt(list.length);
-        this.Word = list[wr];
+        this.word = list[wr];
     }
 }
