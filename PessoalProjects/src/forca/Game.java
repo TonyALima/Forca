@@ -217,6 +217,7 @@ public class Game extends Canvas implements Runnable {
             }
             frame.pack();
             frame.setLocationRelativeTo(null);
+            requestFocus();
         }
     }
 }
