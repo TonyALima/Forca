@@ -10,8 +10,7 @@ public class Player {
     private String finalHits;
     private boolean winOrLose;
     private boolean ok;
-    private static int numberPlayer, record, currentScore;
-    private static String name;
+    private static int currentScore;
 
     //Constructor
     public Player(int length) {
@@ -28,18 +27,6 @@ public class Player {
     }
 
     // Getters init
-
-    public static int getNumberPlayer() {
-        return numberPlayer;
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static int getRecord() {
-        return record;
-    }
 
     public int getCurrentScore() {
         return currentScore;
@@ -67,18 +54,6 @@ public class Player {
     // Getters end
 
     // Setters init
-
-    public static void setName(String name) {
-        Player.name = name;
-    }
-
-    public static void setNumberPlayer(int numberPlayer) {
-        Player.numberPlayer = numberPlayer;
-    }
-
-    public static void setRecord(int record) {
-        Player.record = record;
-    }
 
     public void setCurrentScore(int currentScore) {
         Player.currentScore = currentScore;

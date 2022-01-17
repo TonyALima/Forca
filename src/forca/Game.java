@@ -6,26 +6,15 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Container;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    
     private Logic logic;
     private final BufferedImage image;
     private Render rendering;
-    private static boolean menu, select, add, remove, play;
-    private final boolean isRunning;
-    private boolean rend;
-    private final Menu menuParts;
     private JFrame frame;
-    private final Thread frameThread;
 
     // Canvas dimensions
     private final int WIDTH = 160 * 2;
@@ -34,10 +23,6 @@ public class Game extends Canvas implements Runnable {
 
     // Constructor
     public Game() {
-        this.isRunning = true;
-        frameThread = new Thread(this);
-        frameThread.start();
-        menuParts = new Menu(frameThread);
         Word word = new Word();
         word.generate(); // Choice randomly a word for the game
         this.setSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -62,11 +47,6 @@ public class Game extends Canvas implements Runnable {
     public synchronized void stop() {
 
         try {
-            this.frameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
             rendering.getRenderThread().join();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -80,7 +60,7 @@ public class Game extends Canvas implements Runnable {
 
     public void initFrame() {
         frame = new JFrame("FORCA");
-        frame.add(menuParts.getSelectPanel());
+        frame.add(this);
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -90,139 +70,61 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void render() {
-        if (rend) {
-            BufferStrategy bs = this.getBufferStrategy();
-            if (bs == null) {
-                this.createBufferStrategy(3);
-                return;
-            }
-            Graphics g = image.getGraphics();
-            g.setColor(new Color(200, 200, 200));
-            g.fillRect(0, 0, WIDTH, HEIGHT);
-
-            // Render game init
-
-            g.drawImage(logic.getForca(), 5, 5, logic.sheet.getScale(), logic.sheet.getScale(), null);
-
-            g.setFont(logic.getFont());
-            g.setColor(logic.getColorFont());
-            g.drawString(logic.getErrors(), 120, 55);
-
-            g.setFont(logic.getFont());
-            g.setColor(logic.getColorFont());
-            g.drawString(logic.getInstruction(), 5, 160);
-
-
-            g.setColor(new Color(100, 100, 100));
-            g.fillRect(156, 145, logic.getLetterSpace().width, logic.getLetterSpace().height);
-
-            g.setFont(new Font("Times", Font.PLAIN, 15));
-            g.setColor(logic.getColorFont());
-            g.drawString(logic.getPoxa(), 120, 105);
-
-            g.setFont(logic.getFont());
-            g.setColor(logic.getColorFont());
-            g.drawString(logic.getPlayer().getLetter(), 158, 160);
-
-            g.setFont(logic.getFontHits());
-            g.setColor(logic.getColorFont());
-            g.drawString(logic.getPlayer().getFinalHits(), 5, 210);
-
-            g.setFont(new Font("Times", Font.PLAIN, 11));
-            g.setColor(logic.getColorFont());
-            g.drawString("Categoria: " + logic.getWord().getCategory(), 120, 10);
-
-            g.setFont(new Font("Times", Font.PLAIN, 9));
-            g.setColor(logic.getColorFont());
-            g.drawString("made by Tony Albert Lima", 190, 238);
-
-            g.setFont(new Font("Times", Font.PLAIN, 9));
-            g.setColor(logic.getColorFont());
-            g.drawString("pontos: "+logic.getPlayer().getCurrentScore(), 270,24);
-
-            g.setFont(new Font("Times", Font.PLAIN, 9));
-            g.setColor(logic.getColorFont());
-            g.drawString("jogador: "+Player.getName(),120,24);
-            // Render game end
-
-            g.dispose();
-            g = bs.getDrawGraphics();
-            g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-            bs.show();
+        
+        BufferStrategy bs = this.getBufferStrategy();
+        if (bs == null) {
+            this.createBufferStrategy(3);
+            return;
         }
-    }
+        Graphics g = image.getGraphics();
+        g.setColor(new Color(200, 200, 200));
+        g.fillRect(0, 0, WIDTH, HEIGHT);
 
-    public static void setMenuTrue() {
-        setAllFalse();
-        menu = true;
-    }
+        // Render game init
 
-    public static void setPlayTrue() {
-        setAllFalse();
-        play = true;
-    }
+        g.drawImage(logic.getForca(), 5, 5, logic.sheet.getScale(), logic.sheet.getScale(), null);
 
-    public static void setAddTrue() {
-        setAllFalse();
-        add = true;
-    }
+        g.setFont(logic.getFont());
+        g.setColor(logic.getColorFont());
+        g.drawString(logic.getErrors(), 120, 55);
 
-    public static void setRemoveTrue() {
-        setAllFalse();
-        remove = true;
-    }
+        g.setFont(logic.getFont());
+        g.setColor(logic.getColorFont());
+        g.drawString(logic.getInstruction(), 5, 160);
 
 
-    public static void setSelectTrue() {
-        setAllFalse();
-        select = true;
-    }
+        g.setColor(new Color(100, 100, 100));
+        g.fillRect(156, 145, logic.getLetterSpace().width, logic.getLetterSpace().height);
 
-    private static void setAllFalse() {
-        menu = false;
-        add = false;
-        remove = false;
-        play = false;
-        select = false;
-    }
+        g.setFont(new Font("Times", Font.PLAIN, 15));
+        g.setColor(logic.getColorFont());
+        g.drawString(logic.getPoxa(), 120, 105);
 
-    public static boolean isSelect() {
-        return select;
-    }
+        g.setFont(logic.getFont());
+        g.setColor(logic.getColorFont());
+        g.drawString(logic.getPlayer().getLetter(), 158, 160);
 
-    public static boolean isRemove() {
-        return remove;
-    }
+        g.setFont(logic.getFontHits());
+        g.setColor(logic.getColorFont());
+        g.drawString(logic.getPlayer().getFinalHits(), 5, 210);
 
+        g.setFont(new Font("Times", Font.PLAIN, 11));
+        g.setColor(logic.getColorFont());
+        g.drawString("Categoria: " + logic.getWord().getCategory(), 120, 10);
 
-    @Override
-    public void run() {
-        while (isRunning) {
-            synchronized (this.frameThread){
-                try {
-                    this.frameThread.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            Container currentIn = frame.getContentPane();
+        g.setFont(new Font("Times", Font.PLAIN, 9));
+        g.setColor(logic.getColorFont());
+        g.drawString("made by Tony Albert Lima", 190, 238);
 
-            frame.remove(currentIn.getComponent(0));
-            if (play) {
-                frame.add(this);
-                rend = true;
-            } else if (menu) {
-                frame.add(menuParts.getMenuPanel());
-            } else if (select) {
-                frame.add(menuParts.getSelectPanel());
-            } else if (add) {
-                frame.add(menuParts.getAddPanel());
-            } else if (remove) {
-                frame.add(menuParts.getRemovePanel());
-            }
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            requestFocus();
-        }
+        g.setFont(new Font("Times", Font.PLAIN, 9));
+        g.setColor(logic.getColorFont());
+        g.drawString("pontos: "+logic.getPlayer().getCurrentScore(), 270,24);
+
+        // Render game end
+
+        g.dispose();
+        g = bs.getDrawGraphics();
+        g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+        bs.show();
     }
 }

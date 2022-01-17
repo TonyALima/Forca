@@ -173,10 +173,6 @@ public class Logic implements Runnable, KeyListener {
             this.letterSpace = new Rectangle(0, 0);
             this.player.setLetter("");
             this.player.setCurrentScore(this.player.getCurrentScore() + 1);
-            if (this.player.getCurrentScore() > Player.getRecord()){
-                Player.setRecord(this.player.getCurrentScore());
-                Menu.updatePlayerRecord(Player.getNumberPlayer(),this.player.getCurrentScore());
-            }
         } else {
             throw new IllegalStateException("life cannot be " + player.getLife());
         }
