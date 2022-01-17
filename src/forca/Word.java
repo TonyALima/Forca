@@ -31,7 +31,7 @@ public class Word {
         int cr = random.nextInt(categories.length);
         this.category = categories[cr];
 
-        String arq = "/"+category+".txt";
+        String arq = "/res/"+category+".txt";
         InputStream in = getClass().getResourceAsStream(arq);
         BufferedReader input = new BufferedReader(new InputStreamReader(in));
 

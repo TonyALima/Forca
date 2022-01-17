@@ -10,3 +10,6 @@ hs_err_pid*
 # Visual Studio Code
 .vscode/
 .code-workspace
+
+# Generated files
+playersData/

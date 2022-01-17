@@ -1,6 +1,8 @@
 package forca;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -66,7 +68,7 @@ public class Logic implements Runnable, KeyListener {
 
     // Constructor
     public Logic() {
-        sheet = new Spritesheet("/spritesheet.png", 4);
+        sheet = new Spritesheet("/res/spritesheet.png", 4);
         this.gameThread = new Thread(this);
     }
 

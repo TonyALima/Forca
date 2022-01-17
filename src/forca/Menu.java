@@ -1,9 +1,15 @@
 package forca;
 
 import dataManipulation.Record;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 

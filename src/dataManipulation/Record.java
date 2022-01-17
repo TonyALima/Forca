@@ -1,6 +1,12 @@
 package dataManipulation;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 public class Record {
     private static final String local = new File("").getAbsolutePath();
@@ -11,16 +17,16 @@ public class Record {
         new File(local + "/playersData/player" + np).mkdir();
 
         try (FileWriter file = new FileWriter(local + "/playersData/player" + np + "/name.txt");
-             BufferedWriter buffer = new BufferedWriter(file);
-             PrintWriter printer = new PrintWriter(buffer)) {
+            BufferedWriter buffer = new BufferedWriter(file);
+            PrintWriter printer = new PrintWriter(buffer)) {
             printer.print(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try (FileWriter file = new FileWriter(local + "/playersData/player" + np + "/score.txt");
-             BufferedWriter buffer = new BufferedWriter(file);
-             PrintWriter printer = new PrintWriter(buffer)) {
+            BufferedWriter buffer = new BufferedWriter(file);
+            PrintWriter printer = new PrintWriter(buffer)) {
             printer.print(0);
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,8 +72,8 @@ public class Record {
 
     private void setAmountOfPlayers(int amount) {
         try (FileWriter file = new FileWriter(local + "/playersData/amountOfPlayers.txt");
-             BufferedWriter buffer = new BufferedWriter(file);
-             PrintWriter printer = new PrintWriter(buffer)) {
+            BufferedWriter buffer = new BufferedWriter(file);
+            PrintWriter printer = new PrintWriter(buffer)) {
             printer.print("" + amount);
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,8 +114,8 @@ public class Record {
 
     public static void updatePlayerRecord(int nPlayer, int score) {
         try (FileWriter file = new FileWriter(local + "/playersData/player" + nPlayer + "/score.txt");
-             BufferedWriter buffer = new BufferedWriter(file);
-             PrintWriter printer = new PrintWriter(buffer)) {
+            BufferedWriter buffer = new BufferedWriter(file);
+            PrintWriter printer = new PrintWriter(buffer)) {
             printer.print(score);
         } catch (IOException e) {
             e.printStackTrace();
